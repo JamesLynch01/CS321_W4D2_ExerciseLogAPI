@@ -23,15 +23,19 @@ namespace CS321_W4D2_ExerciseLogAPI.Infrastructure.Data
             return item;
         }
 
-        public ActivityType Get(int id)
+        public Activity Get(int id)
         {
             return _dbContext.Activities
+                .Include(a => a.ActivityType)
+                .Include(a => a.User)
                 .SingleOrDefault(a => a.Id == id);
         }
 
         public IEnumerable<Activity> GetAll()
         {
-            return _dbContext.Activities;
+            return _dbContext.Activities
+                .Include(a => a.ActivityType)
+                .Include(a => a.User);
         }
 
         public Activity Update(Activity updatedActivity)
@@ -39,7 +43,7 @@ namespace CS321_W4D2_ExerciseLogAPI.Infrastructure.Data
             var currentActivity = _dbContext.Activities.Find(updatedActivity.Id);
             if (currentActivity == null) return null;
 
-            _dbContext.ActivityTypes.Update(currentActivity);
+            _dbContext.Activities.Update(currentActivity);
             _dbContext.SaveChanges();
             return currentActivity;
         }

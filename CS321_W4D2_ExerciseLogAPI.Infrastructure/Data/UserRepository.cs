@@ -25,12 +25,14 @@ namespace CS321_W4D2_ExerciseLogAPI.Infrastructure.Data
         public User Get(int id)
         {
             return _dbContext.Users
+                .Include(a => a.Activities)
                 .SingleOrDefault(u => u.Id == id);
         }
 
         public IEnumerable<User> GetAll()
         {
-            return _dbContext.Users;
+            return _dbContext.Users
+                .Include(a => a.Activities);
         }
 
         public User Update(User updatedUser)

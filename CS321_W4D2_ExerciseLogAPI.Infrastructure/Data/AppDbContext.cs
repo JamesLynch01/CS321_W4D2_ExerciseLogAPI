@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.Reflection.Metadata;
 using System.Text;
+using Activity = CS321_W4D2_ExerciseLogAPI.Core.Modder.Activity;
 
 namespace CS321_W4D2_ExerciseLogAPI.Infrastructure.Data
 {
@@ -19,26 +20,27 @@ namespace CS321_W4D2_ExerciseLogAPI.Infrastructure.Data
 
         protected override void OnModelCreating(ModelBuilder builder)
         {
-                modelBuilder.Entity<ActivityType>().HasData(
-                    new ActivityType { Id = 1, Name = "Running", RecordType = RecordType.DurationAndDistance },
-                    new ActivityType { Id = 2, Name = "Weights", RecordType = RecordType.DurationOnly },
-                    new ActivityType { Id = 3, Name = "Walking", RecordType = RecordType.DurationAndDistance }
-                    );
+            builder.Entity<ActivityType>().HasData(
+                new ActivityType { Id = 1, Name = "Running", RecordType = RecordType.DurationAndDistance },
+                new ActivityType { Id = 2, Name = "Weights", RecordType = RecordType.DurationOnly },
+                new ActivityType { Id = 3, Name = "Walking", RecordType = RecordType.DurationAndDistance }
+                );
 
-                modelBuilder.Entity<User>().HasData(
-                    new UserStringHandle { Id = 1, Name = "Testing" }
-                    );
+            builder.Entity<User>().HasData(
+                new User { Id = 1, Name = "Testing" }
+                );
 
-                modelBuilder.Entity<Activity>().HasData(
-                    new Activity { Id = 1, UserId = 1, Date = new DateTime(2019, 6, 19), Distance = 3, Duration = 30, Notes = "Hot!!!" }
-                    );
+            builder.Entity<Activity>().HasData(
+                new Activity { Id = 1, UserId = 1, Date = new DateTime(2019, 6, 19), Distance = 3, Duration = 30, Notes = "Hot!!!" }
+                ); 
+        }
 
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
-                base.OnConfiguring(optionsBuilder);
+        protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        {
+            base.OnConfiguring(optionsBuilder);
+
+            optionsBuilder.UseSqlite("Data Source = ExerciseLog.db");
             
-                optionsBuilder.UseSqlite("Data Source = ExerciseLog.db")
-            }
         }
     }
 }

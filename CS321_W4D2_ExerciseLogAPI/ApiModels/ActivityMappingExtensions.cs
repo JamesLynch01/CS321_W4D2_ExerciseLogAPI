@@ -12,6 +12,14 @@ namespace CS321_W4D2_ExerciseLogAPI.ApiModels
             return new ActivityModel
             {
                 Id = activity.Id,
+                Date = activity.Date,
+                ActivityTypeId = activity.ActivityTypeId,
+                ActivityType = activity.ActivityType.Name,
+                Duration = activity.Duraction,
+                Distance = activity.Distance,
+                User = activity.User.Name,
+                UserId = activity.UserId,
+                Notes = activity.Notes,
                 // TODO: fill in property mappings
                 // TODO: the ActivityType property should contain the name of the activity type
                 // TODO: the User property should contain the user's name
@@ -23,6 +31,13 @@ namespace CS321_W4D2_ExerciseLogAPI.ApiModels
             return new Activity
             {
                 Id = activityModel.Id,
+                Date = activityModel.Date,
+                Duration = activityModel.Duration,
+                Distance = activityModel.Distance,
+                Notes = activityModel.Notes,
+                UserId = activityModel.UserId,
+                ActivityTypeId = activityModel.ActivityTypeId,
+
                 // TODO: fill in property mappings
                 // TODO: leave User and ActivityType null
             };
